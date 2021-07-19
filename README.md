@@ -1,2 +1,1 @@
-# cka
-# cka
+# CKA misc and preparation
