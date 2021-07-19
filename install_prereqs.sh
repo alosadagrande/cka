@@ -15,7 +15,7 @@ EOF
 sudo sysctl --system
 
 sudo apt-get update -y
-sudo apt-get install -y \
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -28,7 +28,7 @@ echo \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 sudo apt-get update -y
-sudo apt-get install docker-ce docker-ce-cli containerd.io -y
+sudo DEBIAN_FRONTEND=noninteractive apt-get install docker-ce docker-ce-cli containerd.io -y
 
 cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
 overlay
@@ -56,15 +56,13 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/containerd/confi
 sudo systemctl restart containerd
 
 sudo apt-get update -y
-sudo apt-get install -y apt-transport-https ca-certificates curl
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y apt-transport-https ca-certificates curl
 sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
 echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 sudo apt-get update -y
-sudo apt-get install -y kubelet kubeadm kubectl
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y kubelet kubeadm kubectl
 
 # sudo apt-get install -y kubelet=1.20.6-00 kubectl=1.20.6-00 kubeadm=1.20.6-00
 # reference https://stackoverflow.com/questions/49721708/how-to-install-specific-version-of-kubernetes
 
 sudo apt-mark hold kubelet kubeadm kubectl
-
-
