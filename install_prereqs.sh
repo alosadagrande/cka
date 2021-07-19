@@ -50,7 +50,7 @@ sudo sysctl --system
 
 sudo mkdir -p /etc/containerd
 # Following configurations are recomended in the kubenetes documentation for Docker runtime. Please refer https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd-systemd
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/containerd/config.toml
+curl -fsSL https://raw.githubusercontent.com/alosadagrande/cka/main/config.toml -o /etc/containerd/config.toml
 #containerd config default | sudo tee /etc/containerd/config.toml
 
 sudo systemctl restart containerd
