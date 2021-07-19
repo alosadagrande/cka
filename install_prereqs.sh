@@ -1,4 +1,6 @@
 #!/bin/bash
+K8S_VERSION=1.20.9-00
+#apt-get install -qy kubeadm=<version>
 
 # disable swap 
 sudo swapoff -a
@@ -60,9 +62,11 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y apt-transport-https ca-ce
 sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
 echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 sudo apt-get update -y
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y kubelet kubeadm kubectl
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -qy kubelet=${K8S_VERSION} kubeadm=${K8S_VERSION} kubectl=${K8S_VERSION}
 
 # sudo apt-get install -y kubelet=1.20.6-00 kubectl=1.20.6-00 kubeadm=1.20.6-00
 # reference https://stackoverflow.com/questions/49721708/how-to-install-specific-version-of-kubernetes
 
 sudo apt-mark hold kubelet kubeadm kubectl
+
+sudo kubeadm config images pull
