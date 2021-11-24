@@ -1,0 +1,41 @@
+parameters:
+ description: cka
+
+vm_cka:
+  type: profile
+  image: hirsute-server-cloudimg-amd64.img
+  cmds:
+  - sudo apt-get update -y
+  - sudo apt-get upgrade -y
+  - echo "{{ password | default('unix1234') }}" | passwd --stdin ubuntu
+  - curl https://raw.githubusercontent.com/alosadagrande/cka/main/install_prereqs.sh
+    | sudo bash -x
+  numcpus: 4
+  memory: 4096
+  disks:
+  - size: 20
+    thin: true
+  nets:
+  - name: default
+  reservedns: true
+  reserveip: true
+
+master-0:
+  profile: vm_cka
+  nets:
+    - name: default
+      ip: 192.168.122.10
+      mask: 255.255.255.0
+worker-1:
+  profile: vm_cka
+  nets:
+    - name: default
+      ip: 192.168.122.20
+      mask: 255.255.255.0
+
+worker-2:
+  profile: vm_cka
+  nets:
+    - name: default
+      ip: 192.168.122.21
+      mask: 255.255.255.0
