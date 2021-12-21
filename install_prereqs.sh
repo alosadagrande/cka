@@ -1,6 +1,6 @@
 #!/bin/bash
-#K8S_VERSION=1.20.9-00
-K8S_VERSION=1.22.4-00
+#K8S_VERSION=1.22.5-00
+K8S_VERSION=1.21.8-00
 #apt-get install -qy kubeadm=<version>
 
 # disable swap 
